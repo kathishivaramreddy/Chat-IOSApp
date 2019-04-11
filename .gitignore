@@ -21,7 +21,9 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-
+*.xcworkspace
+*.xcodeproj
+*.lock
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
