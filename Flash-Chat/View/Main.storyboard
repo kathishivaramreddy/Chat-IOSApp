@@ -50,7 +50,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="wWy-sR-rfK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="688.00000000000011"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="688"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -122,7 +122,7 @@
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="registerPressed:" destination="qQg-wA-Esh" eventType="touchUpInside" id="VlE-dg-fmH"/>
+                                            <action selector="registerButtonPressed:" destination="qQg-wA-Esh" eventType="touchUpInside" id="6yk-ck-Nbs"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -156,8 +156,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="IBw-Pb-pcT"/>
                     <connections>
-                        <outlet property="emailTextfield" destination="M1R-HS-xgc" id="EZN-co-Khq"/>
-                        <outlet property="passwordTextfield" destination="SYb-Xx-USU" id="pWb-Ds-G8q"/>
+                        <outlet property="emailTextField" destination="M1R-HS-xgc" id="Ugs-js-AuB"/>
+                        <outlet property="passwordTextField" destination="SYb-Xx-USU" id="50d-zm-wP8"/>
                         <segue destination="vXZ-lx-hvc" kind="push" identifier="goToChat" id="mOy-cb-hAN"/>
                     </connections>
                 </viewController>
@@ -273,7 +273,7 @@
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="sendPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9e5-46-aXt"/>
+                                            <action selector="messageSendPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xXC-4G-9K5"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -316,16 +316,16 @@
                     <navigationItem key="navigationItem" title="Flash Chat" id="OGj-fw-WBv">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="mz9-8w-6zi">
                             <connections>
-                                <action selector="logOutPressed:" destination="vXZ-lx-hvc" id="AiZ-zI-Rgo"/>
+                                <action selector="logOutPressed:" destination="vXZ-lx-hvc" id="h78-CP-18W"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="heightConstraint" destination="dyw-Nc-T3G" id="JPk-pd-pan"/>
-                        <outlet property="messageTableView" destination="7eI-kw-TVm" id="OYq-98-NhQ"/>
-                        <outlet property="messageTextfield" destination="W4K-YF-skl" id="rE7-AO-1UD"/>
-                        <outlet property="sendButton" destination="JiI-fB-I1v" id="Oxz-hw-PLC"/>
+                        <outlet property="heightConstraint" destination="dyw-Nc-T3G" id="NoG-e3-aCz"/>
+                        <outlet property="messageTableView" destination="7eI-kw-TVm" id="zWg-Wc-tBc"/>
+                        <outlet property="messageTextField" destination="W4K-YF-skl" id="pUo-7f-cTx"/>
+                        <outlet property="sendButton" destination="JiI-fB-I1v" id="Nrj-aN-7Dl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
