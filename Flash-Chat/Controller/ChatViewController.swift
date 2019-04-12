@@ -16,6 +16,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    var messageArray = [Message]()
+    let messagesDB = Database.database().reference().child("Messages")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +31,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         messageTableView.addGestureRecognizer(tapGesture)
         configureTableView()
+        retrieveMessages()
     }
     
 
@@ -43,6 +47,38 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @IBAction func messageSendPressed(_ sender: UIButton) {
+        messageTextField.endEditing(true)
+        
+        sendButton.isEnabled = false
+        
+        //database for messages
+        let messageDictionary = ["Sender": Auth.auth().currentUser?.email,"MessageBody":messageTextField.text!]
+        
+        messagesDB.childByAutoId().setValue(messageDictionary) {
+            (error, reference ) in
+            if error != nil {
+                print(error!)
+            }else{
+                print("message save succesfully")
+                self.sendButton.isEnabled = true
+                self.messageTextField.text = ""
+            }
+        }
+    }
+    
+    func retrieveMessages() {
+        messagesDB.observe(.childAdded) {
+            snapshot in
+            let snapshotValue = snapshot.value as! Dictionary<String,String>
+            let message = Message()
+            message.messageBody = snapshotValue["MessageBody"]!
+            message.sender = snapshotValue["Sender"]!
+            print(message.messageBody)
+            print(message.sender)
+            self.messageArray.append(message)
+            self.configureTableView()
+            self.messageTableView.reloadData()
+        }
     }
     
     @IBAction func logOutPressed(_ sender: Any) {
@@ -56,11 +92,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return messageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
+        
+        cell.messageBody.text = messageArray[indexPath.row].messageBody
+        cell.senderUsername.text = messageArray[indexPath.row].sender
+        cell.avatarImageView.image = UIImage(named: "egg")
         return cell
     }
     
@@ -72,7 +112,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func textFieldDidBeginEditing(_ textField: UITextField) {
        
         UIView.animate(withDuration: 0.5){
-            self.heightConstraint.constant = 308
+            self.heightConstraint.constant = 338
             self.view.layoutIfNeeded()
         }
     }
@@ -87,6 +127,5 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func tableViewTapped() {
         messageTextField.endEditing(true)
     }
-    
     
 }
