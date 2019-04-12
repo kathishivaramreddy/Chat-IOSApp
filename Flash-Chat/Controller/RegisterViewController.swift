@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class RegisterViewController: UIViewController {
 
@@ -23,11 +24,14 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
+        SVProgressHUD.show()
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if error != nil {
-                print("\(error.debugDescription) error")
+                print("\(error) error")
+                SVProgressHUD.showError(withStatus: "Error")
+                
             }else{
-                print("Registration Successful")
+                SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "goToChat", sender: self)
             }
         }
